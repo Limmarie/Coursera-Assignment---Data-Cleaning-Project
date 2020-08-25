@@ -1,0 +1,42 @@
+The run_analysis.R script performs the data preparation with the following 5 steps:
+
+1. Download the dataset
+
+Dataset downloaded, unzipped, extracted and saved under the folder called UCI HAR Dataset
+
+2. Assign each data to variables
+
+features <- features.txt : 561 rows, 2 columns
+The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ.
+activityLabels <- activityLabels.txt : 6 rows, 2 columns
+List of activities performed when the corresponding measurements were taken and its codes (labels)
+subject_test <- test/subject_test.txt : 2947 rows, 1 column
+contains test data of 9/30 volunteer test subjects being observed
+xtest <- test/xtest.txt : 2947 rows, 561 columns
+contains recorded features test data
+ytest <- test/ytest.txt : 2947 rows, 1 columns
+contains test data of activities’code labels
+subject_train <- test/subject_train.txt : 7352 rows, 1 column
+contains train data of 21/30 volunteer subjects being observed
+xtrain <- test/xtrain.txt : 7352 rows, 561 columns
+contains recorded features train data
+ytrain <- test/ytrain.txt : 7352 rows, 1 columns
+contains train data of activities’code labels
+
+3. Merges the training and the test sets to create one data set
+
+mrg_train (2947 rows, 563 columns) is created by merging xtrain and xtest using cbind() function
+mrg_test (7352 rows, 563 columns) is created by merging ytrain and ytest using cbind() function
+setAllInOne (10299 rows, 563 columns) is created by merging mrg_train and mrg_test using rbind() function
+
+4. Extracts only the measurements on the mean and standard deviation for each measurement
+
+mean_and_std is created using grep() 
+setForMeanAndStd (10299 rows, 81 columns) is created by getting from setAllInOne and mean_and_std 
+setWithActivityNames (10299 rows, 82 columns) is created by merging setForMeanAndStd and activityLabels
+
+5. Create a new tidy set and save the output to a text file
+
+secTidySet (180 rows, 82 columns) is created by subjectId + activityId, setWithActivityNames, mean using aggregate() and arranged the order using activityId
+
+secTidySet.txt the final output file is saved to the directory using write.table()
