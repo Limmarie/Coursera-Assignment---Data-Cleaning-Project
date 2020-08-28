@@ -57,8 +57,7 @@ setForMeanAndStd <- setAllInOne[ , mean_and_std == TRUE]
 setWithActivityNames = merge(setForMeanAndStd, activityLabels, by='activityId', all.x=TRUE)
 
 ### 4. New tidy set has to be created 
-secTidySet <- aggregate(. ~subjectId + activityId, setWithActivityNames, mean)
-secTidySet <- secTidySet[order(secTidySet$subjectId, secTidySet$activityId),]
+secTidySet <- setWithActivityNames[order(secTidySet$subjectId, secTidySet$activityId),]
 
 ### 5. The last step is to write the output to a text file 
 write.table(secTidySet,"C:/Coursera/data/secTidySet.txt", row.name=FALSE)
